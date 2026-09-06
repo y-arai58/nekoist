@@ -30,6 +30,12 @@ pnpm dev
 
 ブラウザで `http://localhost:3000` を開きます。
 
+## 公開URL
+
+GitHub Pages: <https://y-arai58.github.io/nekoist/>
+
+`main` ブランチへ変更を送ると、GitHub Actionsが静的サイトを生成してGitHub Pagesへ自動公開します。手動で再公開する場合は、GitHubのActions画面から `Deploy Next.js site to Pages` を実行します。
+
 ## 確認
 
 ```bash
@@ -56,4 +62,4 @@ UIと判定ロジックを分け、質問・結果文・判定式をそれぞれ
 
 ## 現在の範囲
 
-MVPはブラウザ内で完結し、回答の送信・保存、ログイン、SNSシェア、分析基盤は含みません。公開前には実回答データでタイプ分布と覚醒率を検証し、閾値を調整する想定です。
+MVPはブラウザ内で完結し、回答の送信・保存、ログイン、SNSシェア、分析基盤は含みません。実回答データでタイプ分布と覚醒率を検証し、閾値を調整する想定です。
