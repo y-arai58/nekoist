@@ -29,8 +29,8 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--night);
-  font-family: var(--font-dot-jp), monospace;
-  -webkit-font-smoothing: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 button {
@@ -225,6 +225,7 @@ p {
 .hero h1,
 .result-title {
   margin: 0;
+  font-family: var(--font-dot-jp), monospace;
   font-size: clamp(2.2rem, 8vw, 3.8rem);
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -236,6 +237,7 @@ p {
   display: block;
   margin-top: 14px;
   color: var(--pink-dark);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
   font-size: 0.43em;
   letter-spacing: 0.03em;
   text-shadow: 2px 2px 0 #fff;
