@@ -5,6 +5,7 @@ import { questions } from "@/domain/questions";
 import { attributeLabels } from "@/domain/results";
 import { diagnose } from "@/domain/scoring";
 import type { Answers, AnswerValue, DiagnosisResult } from "@/domain/types";
+import { PixelCat } from "./pixel-cat";
 
 type Screen = "welcome" | "questions" | "result";
 
@@ -66,14 +67,24 @@ export function DiagnosisApp() {
     <main className="app-shell">
       <div className="page-wrap">
         <div className="brand" aria-label="nekoist">
-          <span className="brand-mark" aria-hidden="true">ね</span>
-          nekoist
+          <span className="brand-mark" aria-hidden="true">N</span>
+          NEKOIST_SYS
+          <span className="online-indicator" aria-hidden="true">● ONLINE</span>
         </div>
 
         {screen === "welcome" && (
           <section className="card hero" aria-labelledby="welcome-title">
-            <div className="hero-cat" aria-hidden="true">🐱</div>
-            <p className="eyebrow">What kind of cat lover are you?</p>
+            <div className="window-bar" aria-hidden="true">
+              <span>NEKOIST.EXE</span>
+              <span>□ ×</span>
+            </div>
+            <div className="hero-scene">
+              <span className="pixel-spark spark-one" aria-hidden="true">✦</span>
+              <span className="pixel-spark spark-two" aria-hidden="true">+</span>
+              <PixelCat className="pixel-cat hero-cat" />
+              <div className="pixel-ground" aria-hidden="true" />
+            </div>
+            <p className="eyebrow">CAT LOVE ANALYZER / VER.1.0</p>
             <h1 id="welcome-title">nekoist診断<span>あなたの猫愛、何タイプ？</span></h1>
             <p className="hero-copy">
               猫への「好き」は、ひとつじゃない。36の究極の二択から、
@@ -84,18 +95,25 @@ export function DiagnosisApp() {
               <span className="fact">所要時間 約4分</span>
               <span className="fact">16タイプ</span>
             </div>
-            <div><button className="primary-button" type="button" onClick={start}>診断をはじめる　→</button></div>
+            <div><button className="primary-button" type="button" onClick={start}>▶ 診断をはじめる</button></div>
+            <p className="press-start" aria-hidden="true">PRESS START BUTTON</p>
           </section>
         )}
 
         {screen === "questions" && (
           <section className="card question-card" aria-labelledby="question-title">
+            <div className="window-bar" aria-hidden="true">
+              <span>ANALYZE_CAT_LOVE.DAT</span>
+              <span>□ ×</span>
+            </div>
             <div className="progress-head">
-              <span className="progress-label">猫愛を観測中…</span>
-              <span className="progress-count">{currentIndex + 1} / {questions.length}</span>
+              <span className="progress-label">ANALYZING...</span>
+              <span className="progress-count">Q.{String(currentIndex + 1).padStart(2, "0")} / {questions.length}</span>
             </div>
             <div className="progress-track" aria-hidden="true">
-              <div className="progress-fill" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
+              {questions.map((question, index) => (
+                <span className={index <= currentIndex ? "is-filled" : ""} key={question.id} />
+              ))}
             </div>
             <p className="question-number">QUESTION {String(currentQuestion.id).padStart(2, "0")}</p>
             <h1 className="question-title" id="question-title">{currentQuestion.prompt}</h1>
@@ -121,9 +139,9 @@ export function DiagnosisApp() {
               <div className="scale-hint"><span>← 左に近い</span><span>右に近い →</span></div>
             </div>
             <div className="question-actions">
-              <button className="secondary-button" type="button" onClick={back}>← もどる</button>
+              <button className="secondary-button" type="button" onClick={back}>◀ もどる</button>
               <button className="primary-button" type="button" onClick={next} disabled={!currentAnswer}>
-                {currentIndex === questions.length - 1 ? "結果を見る" : "次へ"}　→
+                {currentIndex === questions.length - 1 ? "結果を見る" : "次へ"} ▶
               </button>
             </div>
           </section>
@@ -131,7 +149,14 @@ export function DiagnosisApp() {
 
         {screen === "result" && result && (
           <section className="card result-card" aria-labelledby="result-title" aria-live="polite">
-            <div className="result-emoji" aria-hidden="true">{result.type.emoji}</div>
+            <div className="window-bar" aria-hidden="true">
+              <span>RESULT_UNLOCKED!</span>
+              <span>★ SAVED</span>
+            </div>
+            <div className="result-sprite">
+              <PixelCat className="pixel-cat result-cat" coat={result.type.kind === "awakening" ? "mint" : "cream"} />
+              <span className="result-emoji" aria-hidden="true">{result.type.emoji}</span>
+            </div>
             {result.type.kind === "awakening" && <span className="awakening-badge">覚醒タイプ</span>}
             <p className="eyebrow">あなたのnekoistタイプは</p>
             <h1 className="result-title" id="result-title">{result.type.name}</h1>
@@ -150,7 +175,7 @@ export function DiagnosisApp() {
                 </div>
               ))}
             </div>
-            <div className="result-actions"><button className="secondary-button" type="button" onClick={restart}>もう一度診断する</button></div>
+            <div className="result-actions"><button className="secondary-button" type="button" onClick={restart}>↺ もう一度診断する</button></div>
           </section>
         )}
 
